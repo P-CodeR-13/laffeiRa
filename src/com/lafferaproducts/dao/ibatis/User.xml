@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sqlmap-2.dtd">
+<sqlMap namespace="User">
+
+	<typeAlias alias="UserClass" type="com.lafferaproducts.entity.User"/>
+	
+	<resultMap id="getOneUser" class="UserClass">
+		<result column="user_name" 		property="userName"/>
+		<result column="password" 	property="password"/>
+		<result column="first_name" 		property="firstName"/>
+		<result column="middle_name" 		property="middleName"/>
+		<result column="last_name" 	property="lastName"/>
+		<result column="address" 		property="address"/>
+		<result column="contact_number" 		property="contactNumber"/>
+		<result column="email" 	property="email"/>
+		<result column="user_type" 		property="userType"/>
+		<result column="birth_date" 		property="birthDate"/>
+		<result column="gender" 		property="gender"/>
+		<result column="account_created" property="accountCreated"/>
+	</resultMap>
+	
+	<select id="get1User" resultMap="getOneUser" parameterClass="java.util.HashMap">
+			SELECT user_name, password, first_name, middle_name, last_name, address,
+				 contact_number, email, user_type, TO_CHAR(birth_date, 'yyyy-mm-dd') as birth_date, gender, account_created
+			FROM user_table
+			WHERE user_name = #userName# AND password = #password#
+	</select>
+	
+	<insert id="insert1User" parameterClass="UserClass">
+			INSERT INTO user_table (user_name, password, first_name, middle_name, last_name, address, contact_number, 
+									email, user_type, birth_date, gender, account_created)
+			VALUES(#userName#, #password#, #firstName#, #middleName#, #lastName#, #address#, #contactNumber#, 
+								#email#, #userType#, TO_DATE(#birthDate#, 'yyyy-mm-dd'), #gender#, SYSDATE)
+	</insert>
+	
+	
+	<update id="update1User" parameterClass="UserClass">
+			UPDATE user_table
+			SET first_name = #firstName#, 
+				middle_name = #middleName#, 
+				last_name = #lastName#, 
+				address = #address#, 
+				contact_number = #contactNumber#, 
+				email = #email#, 
+				user_type = #userType#, 
+				birth_date = TO_DATE(#birthDate#, 'yyyy-mm-dd'),
+				gender = #gender#
+			WHERE user_name = #userName# AND password = #password#
+	</update>
+	
+	<select id="getUserList" resultMap="getOneUser">
+		SELECT user_name, password, first_name, middle_name,
+		last_name, address,
+		contact_number, email, user_type, birth_date,
+		gender,account_created
+		FROM user_table
+
+	</select>
+	
+	
+	<procedure id="insertItems" parameterClass="java.util.HashMap">
+			DECLARE
+			      PRODUCTID PRODUCT_TABLE.PRODUCT_ID%TYPE;
+			BEGIN
+			   SELECT PRODUCT_ID 
+			   INTO PRODUCTID
+			   FROM CART_TABLE
+			   WHERE PRODUCT_ID = #productId#;
+			  UPDATE CART_TABLE
+			  SET QUANTITY = #quantity#
+			   WHERE PRODUCT_ID = #productId#;
+			EXCEPTION
+			 WHEN NO_DATA_FOUND THEN
+			  INSERT INTO CART_TABLE VALUES(#userName#, #productId#, #quantity#);
+			END;
+	</procedure>
+	
+	
+	<typeAlias alias="getProductCart" type="com.lafferaproducts.entity.ProductCart"/>
+	
+	<resultMap id="getProductMapById2" class="getProductCart">
+		<result column="product_id" 		property="productId"/>
+		<result column="product_name" 	property="productName"/>
+		<result column="stock" 		property="stock"/>
+		<result column="product_price" 		property="productPrice"/>
+		<result column="image" 		property="image"/>
+		<result column="quantity" 		property="quantity"/>
+	</resultMap>
+	
+	<select id="getCartList" resultMap="getProductMapById2" parameterClass="java.lang.String">
+		SELECT a.product_id, a.product_name, a.quantity as stock, a.image, a.product_price, b.quantity 
+		FROM product_table a, cart_table b
+		WHERE a.product_id = b.product_id AND  b.user_name = #userName#
+	</select>
+	
+</sqlMap>
