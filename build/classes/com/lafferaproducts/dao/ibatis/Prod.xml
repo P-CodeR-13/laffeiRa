@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sqlmap-2.dtd">
+<sqlMap namespace="Prod">
+	
+	<typeAlias alias="ProductClass" type="com.lafferaproducts.entity.Product"/>
+	
+	<resultMap id="getProductMap" class="ProductClass">
+		<result column="product_id" 		property="productId"/>
+		<result column="product_name" 	property="productName"/>
+		<result column="quantity" 		property="quantity"/>
+		<result column="description" 		property="description"/>
+		<result column="image" 		property="image"/>
+		<result column="product_price" 	property="price"/>
+	</resultMap>
+
+	<select id="getProduct" resultMap="getProductMap">
+		SELECT product_id, product_name, quantity, description, image, product_price 
+		FROM product_table
+		WHERE quantity > 0
+		ORDER BY product_id
+	</select>
+	
+	<typeAlias alias="ProductCartClass" type="com.lafferaproducts.entity.ProductCart"/>
+	
+	<resultMap id="getProductMapById" class="ProductCartClass">
+		<result column="product_id" 		property="productId"/>
+		<result column="product_name" 	property="productName"/>
+		<result column="quantity" 		property="stock"/>
+		<result column="product_price" 		property="productPrice"/>
+		<result column="image" 		property="image"/>
+	</resultMap>
+	
+	<select id="getProductById" resultMap="getProductMapById" parameterClass="java.lang.Integer">
+		SELECT product_id, 	product_name, quantity, image, product_price 
+		FROM product_table
+		WHERE product_id = #productId#
+	</select>
+	
+	
+	
+	<update id="updateProdStock" parameterClass="java.util.HashMap">
+		UPDATE product_table
+		SET quantity = (quantity-#quantity#)
+		WHERE product_id = #productId#
+	</update>
+	
+	<delete id="deleteCartItems" parameterClass="java.lang.String">
+		DELETE FROM cart_table WHERE user_name= #userName#
+	</delete>
+	
+	<typeAlias alias="ProductClass2" type="com.lafferaproducts.entity.Product"/>
+	
+	<resultMap id="getProductMap2" class="ProductClass2">
+		<result column="product_id" 		property="productId"/>
+		<result column="product_name" 	property="productName"/>
+		<result column="quantity" 		property="quantity"/>
+		<result column="description" 		property="description"/>
+		<result column="image" 		property="image"/>
+		<result column="product_price" 	property="price"/>
+		<result column="kinds" 	property="kinds"/>
+	</resultMap>
+
+	<select id="getProductsAdmin" resultMap="getProductMap2">
+		SELECT product_id, product_name, quantity, description, image, product_price, kinds 
+		FROM product_table
+		ORDER BY product_id
+	</select>
+	
+	<insert id="insertProduct" parameterClass="ProductClass2">
+			INSERT into product_table (product_id, product_name, quantity, description, image, product_price, kinds)
+			VALUES(#productId#, #productName#, #quantity#, #description#, #image#, #price#, #kinds#)
+	
+	</insert>
+	
+	<update id="updateProduct" parameterClass="ProductClass2">
+		UPDATE product_table
+		SET
+		product_name = #productName#,
+		quantity = #quantity#,
+		description = #description#,
+		image = #image#,
+		product_price = #price#,
+		kinds = #kinds#
+		WHERE product_id = #productId#
+	</update>
+	
+</sqlMap>
