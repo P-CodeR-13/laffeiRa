@@ -1,0 +1,111 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Laffera Online Store</title>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
+  <script> var contextPath = "${pageContext.request.contextPath}";</script>
+   <script src="${pageContext.request.contextPath}/js/index.js"></script> 
+  <!--  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/indexDes.css"> -->
+    <link rel="stylesheet" type="text/css" href="indexDesign.css">
+</head>
+<body>
+<jsp:include page="pages/header.jsp"/>
+<!-- <div class="jumbotron">
+  <h1>Welcome to our shop</h1>
+  <p>May you enjoy shopping with different items of different kinds in our online store in an easy way. </p>
+</div> -->
+
+<header>
+  <div class="overlay">
+<h1>Laffera</h1>
+<h3>Reasons for Choosing US</h3>
+<p>We are the leading e-commerce platform in the Philippines. It is a platform tailored for the region, providing both buyers and sellers with an easy, secure and fast online shopping experience through strong payment and logistical support. May you enjoy shopping with different items of different kinds in our online store in an easy way.</p>
+  <br>
+  <!-- <button>READ MORE</button> -->
+    </div>
+</header>
+     <div class="container">  <!-- start ng main container -->
+                  <div class="row"> <!-- start ng row -->
+
+                      <div class="col-lg-2">  
+                      </div>  
+
+                  <div class="col-lg-8" align="center"> <!-- yung main content --> 
+                    <div class="card"> <!-- main content -->
+
+                        <div class="row"> <!-- start ng product na galing sa database -->
+                          <c:forEach var="prod" items="${prodList}" varStatus="loop">
+                              <div class="col-sm-4">
+                              <div class="card" style="width: 10rem;">
+                                  <img src="${pageContext.request.contextPath}/images/${prod.image}"  alt="image" class="card-img-top"/>
+                                  <div class="card-body">
+                                    <h5 id="cart-name" class="card-title"> ${prod.productName} </h5>
+                                    <p  id="cart-description" style="font-size: 8px;"> ${prod.description}</p>
+                                    <p id="cart-price" class="card-text"> P${prod.price}</p>
+                                    <button onclick="getCategoryIndex('${prod.productId}');"  class="btn btn-primary">Add to Cart</button>
+                                  </div>
+                              </div>
+                              </div>
+                            </c:forEach>
+                          </div> <!-- end ng product na galing sa database -->
+
+                        </div> <!-- end main content -->
+                </div> <!-- end middle container -->
+
+
+                  <div class="col-lg-4">   <!-- last container -->
+                  </div> <!-- end last container -->
+          </div> <!-- end ng row -->
+        </div> <!-- end ng class container -->
+
+<!--footer start-->
+    <div class="footer-wrap">
+        <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h3>ABOUT Laffera</h3>
+            <div class="footer-logo"><img src="http://hassandesigns.top/html/classified/images/footer-logo.png" alt=""></div>
+            <p style=" text-align: justify;
+           text-justify: inter-word;">Laffera is the leading e-commerce platform in the Philippines. It is a platform tailored for the region, providing both buyers and sellers with an easy, secure and fast online shopping experience through strong payment and logistical support. With a wide selection of product categories ranging from consumer electronics to home & living, health & beauty, baby & toys, fashion and fitness equipment, Shopee aims to continually enhance its platform and become the region’s e-commerce destination of choice.</p>
+          </div>
+    
+         
+          <div class="col-md-3 col-sm-7">
+            <h3>MAIN CATEGORIES</h3>
+            <div class="address">Laffera Online Shopping </div>
+            <div class="address">80 Ortigas Ave, San Juan, 1500 Metro Manila </div>
+            <div class="info"><i class="fa fa-phone" aria-hidden="true"></i> <a href="#.">(777) 123 4567</a></div>
+            <div class="info"><i class="fa fa-fax" aria-hidden="true"></i> <a href="#.">(123) 456 7890</a></div>
+            <h3> Follow Us </h3>
+          
+             <a href="https://www.youtube.com" target="_blank">
+                            <img src="Images/YouTube Logo.png"> </a>
+
+               <a href="https://www.spotify.com" target="_blank">
+                            <img src="Images/Spotify Logo.png">
+                        </a> 
+             <a href="https://www.facebook.com" target="_blank">
+                            <img src="Images/Facebook Logo.png">
+                        </a>
+          </div>
+        </div>
+        <div class="copyright">Copyright © 2019 Laffera - All Rights Reserved.</div>
+        </div>
+      </div>
+
+
+    <!--footer end-->
+
+<div align="center"><small>Follow us on Twitter Facebook</small></div>
+</body>
+</html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ 

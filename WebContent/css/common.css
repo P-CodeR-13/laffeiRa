@@ -1,0 +1,24 @@
+.yellow{
+	background-color: #FFFF66;
+	color: #0066CC;
+}
+
+.tableRow	{
+	height: 20px; 
+	border: 1px solid #E0E0E0; 
+	padding: 3px; 
+	padding-top: 7px;
+	padding-left: 0;
+}
+
+.selectedRow	{
+	background-color: #98D0FF;
+	color: #0066CC;
+}
+
+.card-text{
+	font-size: 12px;
+}
+
+
+
