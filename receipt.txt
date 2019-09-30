@@ -1,0 +1,13 @@
+		Laffera Shop		
+80 Ortigas Ave, San Juan, 1500 Metro Manila
+***********************************************************
+	ID	Product Name	Quantity	Price	Total Price per Item
+	3	Samsum	1	18000.5	18000.5
+	7	cherry-mobile	1	12000	12000
+	5	Cherry Mobile S6	1	2999	2999
+***********************************************************
+Total : 32999.50
+Payment : 43243.00
+Change : 10243.50
+***********************************************************
+			THANK YOU!!!				
